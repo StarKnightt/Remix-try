@@ -1,11 +1,21 @@
+import type { LinksFunction } from "@remix-run/node";
+import appStylesHref from "./app.css?url";
+import { json } from "@remix-run/node";
+
 import {
   Form,
   Links,
   Meta,
   Scripts,
+  Outlet,
   ScrollRestoration,
+  Link,
+  userLoaddata
 } from "@remix-run/react";
 
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: appStylesHref },
+];
 export default function App() {
   return (
     <html lang="en">
@@ -29,6 +39,7 @@ export default function App() {
               />
               <div id="search-spinner" aria-hidden hidden={true} />
             </Form>
+            
             <Form method="post">
               <button type="submit">New</button>
             </Form>
@@ -36,15 +47,17 @@ export default function App() {
           <nav>
             <ul>
               <li>
-                <a href={`/contacts/1`}>Your Name</a>
+                <Link to={`/contacts/1`}>Your Name</Link>
               </li>
               <li>
-                <a href={`/contacts/2`}>Your Friend</a>
+                <Link to={`/contacts/2`}>Your Friend</Link>
               </li>
             </ul>
           </nav>
         </div>
-
+        <div id="detail">
+          <Outlet />
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
